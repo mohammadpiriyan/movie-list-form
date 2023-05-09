@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useMovieStore } from "../context/MovieStore";
 import { v4 as uuidv4 } from "uuid";
 import * as Yup from "yup";
@@ -7,7 +7,16 @@ import "react-toastify/dist/ReactToastify.css";
 
 const Form = () => {
   // add context state
-  const { _, dispatch, newItem, setNewItem } = useMovieStore();
+  const {
+    _,
+    dispatch,
+    newItem,
+    setNewItem,
+    editItem,
+    setEditItem,
+    onEdit,
+    setOnEdit,
+  } = useMovieStore();
 
   // --------------------------------------------------------------------
 
@@ -35,15 +44,41 @@ const Form = () => {
     });
 
     try {
-      await validationSchema.validate(newItem);
-      toast.success("با موفقیت ثبت شد!");
-      const newItemWithId = { ...newItem, id: uuidv4() };
-      dispatch({ type: "ADD_TO_LIST", payload: newItemWithId });
-      resetForm();
+      if (onEdit == false) {
+        await validationSchema.validate(newItem);
+        toast.success("با موفقیت ثبت شد!");
+        const newItemWithId = { ...newItem, id: uuidv4() };
+        dispatch({ type: "ADD_TO_LIST", payload: newItemWithId });
+        resetForm();
+      } else {
+        dispatch({ type: "IS_EDIT_LIST", payload: newItem });
+        setOnEdit(false);
+        toast.success("با موفقیت ویرایش شد!");
+      }
     } catch (error) {
-      toast.error(`${error.errors}`);
+      toast.warning(`${error.errors}`);
     }
   };
+
+  useEffect(() => {
+    if (onEdit == true) {
+      setNewItem({
+        name: editItem.name,
+        director: editItem.director,
+        genre: editItem.genre,
+        year: editItem.year,
+        about: editItem.about,
+      });
+    } else {
+      setNewItem({
+        name: "",
+        director: "",
+        genre: "",
+        year: "",
+        about: "",
+      });
+    }
+  }, [onEdit]);
 
   // --------------------------------------------------------------------
 
@@ -142,7 +177,7 @@ const Form = () => {
             </div>
             <div className="flex gap-4">
               <button className="p-2 px-8 text-[#515050] bg-[#f6c90e] hover:bg-[#ffe664] rounded-lg">
-                ذخیره
+                {onEdit == true ? "ویرایش" : "ذخیره"}
               </button>
               <button
                 type="button"

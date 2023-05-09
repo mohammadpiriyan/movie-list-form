@@ -1,9 +1,11 @@
 import React from "react";
 import { useMovieStore } from "../context/MovieStore";
+import { toast } from "react-toastify";
 
 const List = () => {
   // add context state
-  const { state, dispatch } = useMovieStore();
+  const { state, dispatch, editItem, setEditItem, onEdit, setOnEdit } =
+    useMovieStore();
 
   return (
     <div className="w-screen p-8 bg-[#595959]">
@@ -37,7 +39,13 @@ const List = () => {
                   </button>
                 </td>
                 <td className="p-2">
-                  <button className="border hover:bg-emerald-500 border-emerald-600 rounded-md p-2 px-4">
+                  <button
+                    onClick={() => {
+                      dispatch({ type: "EDIT_LIST", payload: item });
+                      setOnEdit(true);
+                    }}
+                    className="border hover:bg-emerald-500 border-emerald-600 rounded-md p-2 px-4"
+                  >
                     ویرایش
                   </button>
                 </td>
@@ -49,6 +57,7 @@ const List = () => {
                         type: "REMOVE_FROM_LIST",
                         payload: item,
                       });
+                      toast.error("با موفقیت حذف شد!");
                     }}
                   >
                     حذف
