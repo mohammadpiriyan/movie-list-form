@@ -18,18 +18,18 @@ const List = () => {
   } = useMovieStore();
 
   return (
-    <div className="w-screen p-8 bg-[#595959]">
+    <div className="w-screen p-8 xxsm:p-6 bg-[#595959]">
       <table className="w-full table-fixed text-center text-white">
-        <thead className="p-8 border-b-2">
-          <tr className="">
-            <th>ردیف</th>
-            <th>نام فیلم</th>
-            <th>کارگردان</th>
-            <th>ژانرفیلم</th>
-            <th>سال ساخت</th>
-            <th>توضیحات</th>
-            <th>ویرایش</th>
-            <th>حذف</th>
+        <thead className="p-8 xxsm:p-4 border-b-2">
+          <tr className="xxsm:text-xs xsm:text-sm">
+            <th className="xxsm:text-xs xsm:text-sm">ردیف</th>
+            <th className="xxsm:text-xs xsm:text-sm">نام فیلم</th>
+            <th className="xxsm:hidden xsm:text-sm">کارگردان</th>
+            <th className="xxsm:text-xs xsm:text-sm">ژانرفیلم</th>
+            <th className="xxsm:text-xs xsm:text-sm">سال ساخت</th>
+            <th className="xxsm:text-xs xsm:text-sm">توضیحات</th>
+            <th className="xxsm:hidden xsm:text-sm">ویرایش</th>
+            <th className="xxsm:text-xs xsm:text-sm">حذف</th>
           </tr>
         </thead>
 
@@ -37,37 +37,44 @@ const List = () => {
           {state.map((item, index) => {
             // console.log(item);
             return (
-              <tr className="" key={index}>
-                <td className="p-2">{index + 1}</td>
-                <td className="p-2">{item.name}</td>
-                <td className="p-2">{item.director}</td>
-                <td className="p-2">{item.genre}</td>
-                <td className="p-2">{item.year}</td>
-                <td className="p-2">
+              <tr className="xsm:text-sm " key={index}>
+                <td className="p-2 xxsm:p-0 xxsm:text-xs ">{index + 1}</td>
+                <td className="p-2 xxsm:p-0 xxsm:text-xs">{item.name}</td>
+                <td className="p-2 xxsm:text-xs xxsm:hidden">
+                  {item.director}
+                </td>
+                <td className="p-2 xxsm:text-xs">{item.genre}</td>
+                <td className="p-2 xxsm:text-xs">{item.year}</td>
+                <td className="p-2 xsm:p-0 xxsm:p-0 xxsm:text-xs">
                   <button
                     onClick={() => {
                       setModalItem(item);
                       setOpenModal(true);
                     }}
-                    className="border hover:bg-sky-500 border-sky-600 rounded-md p-2 px-4"
+                    className="border xsm:p-2 hover:bg-sky-500 xxsm:hover:bg-sky-300 border-sky-600 xxsm:border-none rounded-md p-2 px-4 xxsm:p-1 xxsm:px-2 xxsm:text-xs "
                   >
-                    توضیحات
+                    <p className="xxsm:hidden">توضیحات</p>
+                    <img
+                      src="./src/images/icon/about.svg"
+                      alt=""
+                      className="w-4 hidden xxsm:block"
+                    />
                   </button>
                 </td>
-                <td className="p-2">
+                <td className="p-2 xsm:p-0 xxsm:hidden">
                   <button
                     onClick={() => {
                       dispatch({ type: "EDIT_LIST", payload: item });
                       setOnEdit(true);
                     }}
-                    className="border hover:bg-emerald-500 border-emerald-600 rounded-md p-2 px-4"
+                    className="border xsm:p-2 hover:bg-emerald-500 border-emerald-600 rounded-md p-2 px-4 "
                   >
                     ویرایش
                   </button>
                 </td>
-                <td className="p-2">
+                <td className="p-2 xsm:p-0 xxsm:p-0 xxsm:text-xs">
                   <button
-                    className="border hover:bg-rose-500 border-rose-600 rounded-md p-2 px-4"
+                    className="border xsm:p-2 hover:bg-rose-500 xxsm:hover:bg-rose-300 border-rose-600 xxsm:border-none rounded-md p-2 px-4 xxsm:p-1 xxsm:px-2 xxsm:text-xs"
                     onClick={() => {
                       dispatch({
                         type: "REMOVE_FROM_LIST",
@@ -76,7 +83,12 @@ const List = () => {
                       toast.error("با موفقیت حذف شد!");
                     }}
                   >
-                    حذف
+                    <p className="xxsm:hidden">حذف</p>
+                    <img
+                      src="./src/images/icon/delete.svg"
+                      alt=""
+                      className="w-4 hidden xxsm:block"
+                    />
                   </button>
                 </td>
               </tr>

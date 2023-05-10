@@ -6,6 +6,10 @@ export default {
       fontFamily: {
         iransans: ["sans-serif"],
       },
+      screens: {
+        xsm: { min: "550px", max: "769px" },
+        xxsm: { min: "200px", max: "550px" },
+      },
     },
   },
   plugins: [],
