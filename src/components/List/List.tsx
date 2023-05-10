@@ -4,14 +4,24 @@ import { toast } from "react-toastify";
 
 const List = () => {
   // add context state
-  const { state, dispatch, editItem, setEditItem, onEdit, setOnEdit } =
-    useMovieStore();
+  const {
+    state,
+    dispatch,
+    editItem,
+    setEditItem,
+    onEdit,
+    setOnEdit,
+    openModal,
+    setOpenModal,
+    modalItem,
+    setModalItem,
+  } = useMovieStore();
 
   return (
     <div className="w-screen p-8 bg-[#595959]">
       <table className="w-full table-fixed text-center text-white">
-        <thead className="divide-y divide-red-700">
-          <tr>
+        <thead className="p-8 border-b-2">
+          <tr className="">
             <th>ردیف</th>
             <th>نام فیلم</th>
             <th>کارگردان</th>
@@ -34,7 +44,13 @@ const List = () => {
                 <td className="p-2">{item.genre}</td>
                 <td className="p-2">{item.year}</td>
                 <td className="p-2">
-                  <button className="border hover:bg-sky-500 border-sky-600 rounded-md p-2 px-4">
+                  <button
+                    onClick={() => {
+                      setModalItem(item);
+                      setOpenModal(true);
+                    }}
+                    className="border hover:bg-sky-500 border-sky-600 rounded-md p-2 px-4"
+                  >
                     توضیحات
                   </button>
                 </td>

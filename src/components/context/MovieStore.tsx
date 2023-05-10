@@ -25,8 +25,6 @@ type MovieContext = {
 };
 
 // ----------------------------------------------------------------
-
-// ----------------------------------------------------------------
 // createContext
 const movieContext = createContext<MovieContext | []>([]);
 
@@ -36,12 +34,14 @@ export const useMovieStore = () => {
 };
 
 // ----------------------------------------------------------------
-
-// ----------------------------------------------------------------
-// MainBody
+// ***************************************MainBody********************************************
 const MovieProvider = ({ children }: { children: ReactNode }) => {
+  // states
   const [editItem, setEditItem] = useState({});
   const [onEdit, setOnEdit] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+  const [modalItem, setModalItem] = useState({});
+
   // ========================================
   // function reducer
 
@@ -62,6 +62,7 @@ const MovieProvider = ({ children }: { children: ReactNode }) => {
         return state;
       case "IS_EDIT_LIST":
         console.log("edit");
+        // eslint-disable-next-line no-case-declarations
         const update = state.map((item) => {
           if (item.id === editItem.id) {
             item = { ...action.payload, id: editItem.id };
@@ -90,6 +91,7 @@ const MovieProvider = ({ children }: { children: ReactNode }) => {
   });
 
   return (
+    // ===========================\\\\\\====>PRovider<====//////===================================
     <movieContext.Provider
       value={{
         state,
@@ -100,6 +102,10 @@ const MovieProvider = ({ children }: { children: ReactNode }) => {
         setEditItem,
         onEdit,
         setOnEdit,
+        openModal,
+        setOpenModal,
+        modalItem,
+        setModalItem,
       }}
     >
       {children}

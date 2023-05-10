@@ -28,6 +28,7 @@ const Form = () => {
       year: "",
       about: "",
     });
+    setOnEdit(false);
   };
 
   const handleSubmit = async (e) => {
@@ -90,7 +91,7 @@ const Form = () => {
             <div className="flex flex-col gap-2">
               <label className="text-white">نام فیلم</label>
               <input
-                className="bg-transparent border border-[#757474] rounded-lg p-2 focus:border-[#f6c90e] focus:outline-none text-white"
+                className="bg-transparent border border-[#757474] rounded-lg p-2 hover:border-[#f6c90e] focus:border-[#f6c90e] focus:outline-none text-white"
                 type="text"
                 name="name-input"
                 value={newItem.name}
@@ -103,7 +104,7 @@ const Form = () => {
             <div className="flex flex-col gap-2">
               <label className="text-white">کارگردان</label>
               <input
-                className="bg-transparent border rounded-lg p-2 border-[#757474] focus:border-[#f6c90e] focus:outline-none text-white"
+                className="bg-transparent border rounded-lg p-2 border-[#757474] hover:border-[#f6c90e] focus:border-[#f6c90e] focus:outline-none text-white"
                 type="text"
                 value={newItem.director}
                 name="director-input"
@@ -123,9 +124,9 @@ const Form = () => {
                   setNewItem({ ...newItem, genre: e.target.value });
                 }}
                 name="genre-input"
-                className="bg-transparent border border-[#757474] rounded-lg p-2  text-white focus:border-[#f6c90e] focus:outline-none text-white"
+                className="bg-transparent border border-[#757474] rounded-lg p-2 hover:border-[#f6c90e]  text-white focus:border-[#f6c90e] focus:outline-none text-white"
               >
-                <option value="وحشت" selected className="bg-[#515050] p-1">
+                <option value="وحشت" className="bg-[#515050] p-1">
                   وحشت / هیجانی
                 </option>
                 <option value="اکشن" className="bg-[#515050] p-1">
@@ -148,7 +149,7 @@ const Form = () => {
             <div className="flex flex-col gap-2">
               <label className="text-white">سال تولید</label>
               <input
-                className="bg-transparent border border-[#757474] rounded-lg p-2 focus:border-[#f6c90e] focus:outline-none text-white"
+                className="bg-transparent border border-[#757474] rounded-lg p-2 hover:border-[#f6c90e] focus:border-[#f6c90e] focus:outline-none text-white"
                 name="year-input"
                 type="text"
                 value={newItem.year}
@@ -164,7 +165,7 @@ const Form = () => {
             <div className="flex flex-col gap-2">
               <label className="text-white">توضیحات</label>
               <textarea
-                className="bg-transparent border rounded-lg p-2 border-[#757474] focus:border-[#f6c90e] focus:outline-none text-white"
+                className="bg-transparent border rounded-lg p-2 border-[#757474] hover:border-[#f6c90e] focus:border-[#f6c90e] focus:outline-none text-white"
                 name="about-input"
                 cols="30"
                 rows="3"

@@ -3,12 +3,13 @@ import Navbar from "./components/Navbar/Navbar";
 import List from "./components/List/List";
 import MovieProvider from "./components/context/MovieStore";
 import { ToastContainer, toast } from "react-toastify";
+import Modal from "./components/Modal/Modal";
 
 // ------------------------------------------------------------------------------------------------
 
 function App() {
   return (
-    <>
+    <div className="bg-[#595959] h-screen overflow-x-hidden">
       <ToastContainer
         position="top-left"
         autoClose={5000}
@@ -22,11 +23,12 @@ function App() {
         theme="light"
       />
       <MovieProvider>
+        <Modal />
         <Navbar />
         <Form />
         <List />
       </MovieProvider>
-    </>
+    </div>
   );
 }
 
