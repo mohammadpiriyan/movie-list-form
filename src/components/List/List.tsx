@@ -19,6 +19,10 @@ const List = () => {
 
   return (
     <div className="w-screen p-8 xxsm:p-6 bg-[#595959]">
+      <div className="flex gap-3 mb-6">
+        <div className="bg-[#f6c90e] p-[0.24rem]"></div>
+        <p className="text-white font-bold">لیست فیلم</p>
+      </div>
       <table className="w-full table-fixed text-center text-white">
         <thead className="p-8 xxsm:p-4 border-b-2">
           <tr className="xxsm:text-xs xsm:text-sm">

@@ -89,7 +89,10 @@ const Form = () => {
         <div className="flex gap-4 xxsm:flex-col">
           <div className="w-[30%] xxsm:w-full flex flex-col gap-9 xxsm:gap-3 xxsm:text-sm">
             <div className="flex flex-col gap-2">
-              <label className="text-white">نام فیلم</label>
+              <div className="flex gap-2">
+                <div className="bg-[#f6c90e] p-[0.2rem]"></div>
+                <label className="text-white">نام فیلم</label>
+              </div>
               <input
                 className="xxsm:p-1 bg-transparent border border-[#757474] rounded-lg p-2 hover:border-[#f6c90e] focus:border-[#f6c90e] focus:outline-none text-white"
                 type="text"
@@ -102,7 +105,10 @@ const Form = () => {
               />
             </div>
             <div className="flex flex-col gap-2">
-              <label className="text-white">کارگردان</label>
+              <div className="flex gap-2">
+                <div className="bg-[#f6c90e] p-[0.2rem]"></div>
+                <label className="text-white">کارگردان</label>
+              </div>
               <input
                 className="xxsm:p-1 bg-transparent border rounded-lg p-2 border-[#757474] hover:border-[#f6c90e] focus:border-[#f6c90e] focus:outline-none text-white"
                 type="text"
@@ -118,7 +124,10 @@ const Form = () => {
 
           <div className="w-[30%] xxsm:w-full flex flex-col gap-9 xxsm:gap-3 xxsm:text-sm">
             <div className="flex flex-col gap-2">
-              <label className="text-white">ژانر فیلم</label>
+              <div className="flex gap-2">
+                <div className="bg-[#f6c90e] p-[0.2rem]"></div>
+                <label className="text-white">ژانر فیلم</label>
+              </div>
               <select
                 onChange={(e) => {
                   setNewItem({ ...newItem, genre: e.target.value });
@@ -147,7 +156,10 @@ const Form = () => {
               </select>
             </div>
             <div className="flex flex-col gap-2">
-              <label className="text-white">سال تولید</label>
+              <div className="flex gap-2">
+                <div className="bg-[#f6c90e] p-[0.2rem]"></div>
+                <label className="text-white">سال تولید</label>
+              </div>
               <input
                 className="xxsm:p-1 bg-transparent border border-[#757474] rounded-lg p-2 hover:border-[#f6c90e] focus:border-[#f6c90e] focus:outline-none text-white"
                 name="year-input"
@@ -163,7 +175,10 @@ const Form = () => {
 
           <div className="w-[30%] xxsm:w-full flex flex-col gap-6 xxsm:gap-3 xxsm:text-sm">
             <div className="flex flex-col gap-2">
-              <label className="text-white">توضیحات</label>
+              <div className="flex gap-2">
+                <div className="bg-[#f6c90e] p-[0.2rem]"></div>
+                <label className="text-white">توضیحات</label>
+              </div>
               <textarea
                 className="bg-transparent border rounded-lg p-2 xxsm:p-1 border-[#757474] hover:border-[#f6c90e] focus:border-[#f6c90e] focus:outline-none text-white"
                 name="about-input"

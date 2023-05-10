@@ -4,6 +4,7 @@ import List from "./components/List/List";
 import MovieProvider from "./components/context/MovieStore";
 import { ToastContainer, toast } from "react-toastify";
 import Modal from "./components/Modal/Modal";
+import FilterNav from "./components/FilterNav/FilterNav";
 
 // ------------------------------------------------------------------------------------------------
 
@@ -26,6 +27,7 @@ function App() {
         <Modal />
         <Navbar />
         <Form />
+        <FilterNav />
         <List />
       </MovieProvider>
     </div>
