@@ -15,6 +15,10 @@ const List = () => {
     setOpenModal,
     modalItem,
     setModalItem,
+    filterInput,
+    setFilterInput,
+    searchInput,
+    setSearchInput,
   } = useMovieStore();
 
   return (
@@ -38,66 +42,202 @@ const List = () => {
         </thead>
 
         <tbody>
-          {state.map((item, index) => {
-            // console.log(item);
-            return (
-              <tr className="xsm:text-sm " key={index}>
-                <td className="p-2 xxsm:p-0 xxsm:text-xs ">{index + 1}</td>
-                <td className="p-2 xxsm:p-0 xxsm:text-xs">{item.name}</td>
-                <td className="p-2 xxsm:text-xs xxsm:hidden">
-                  {item.director}
-                </td>
-                <td className="p-2 xxsm:text-xs">{item.genre}</td>
-                <td className="p-2 xxsm:text-xs">{item.year}</td>
-                <td className="p-2 xsm:p-0 xxsm:p-0 xxsm:text-xs">
-                  <button
-                    onClick={() => {
-                      setModalItem(item);
-                      setOpenModal(true);
-                    }}
-                    className="border xsm:p-2 hover:bg-sky-500 xxsm:hover:bg-sky-300 border-sky-600 xxsm:border-none rounded-md p-2 px-4 xxsm:p-1 xxsm:px-2 xxsm:text-xs "
-                  >
-                    <p className="xxsm:hidden">توضیحات</p>
-                    <img
-                      src="./src/images/icon/about.svg"
-                      alt=""
-                      className="w-4 hidden xxsm:block"
-                    />
-                  </button>
-                </td>
-                <td className="p-2 xsm:p-0 xxsm:hidden">
-                  <button
-                    onClick={() => {
-                      dispatch({ type: "EDIT_LIST", payload: item });
-                      setOnEdit(true);
-                    }}
-                    className="border xsm:p-2 hover:bg-emerald-500 border-emerald-600 rounded-md p-2 px-4 "
-                  >
-                    ویرایش
-                  </button>
-                </td>
-                <td className="p-2 xsm:p-0 xxsm:p-0 xxsm:text-xs">
-                  <button
-                    className="border xsm:p-2 hover:bg-rose-500 xxsm:hover:bg-rose-300 border-rose-600 xxsm:border-none rounded-md p-2 px-4 xxsm:p-1 xxsm:px-2 xxsm:text-xs"
-                    onClick={() => {
-                      dispatch({
-                        type: "REMOVE_FROM_LIST",
-                        payload: item,
-                      });
-                      toast.error("با موفقیت حذف شد!");
-                    }}
-                  >
-                    <p className="xxsm:hidden">حذف</p>
-                    <img
-                      src="./src/images/icon/delete.svg"
-                      alt=""
-                      className="w-4 hidden xxsm:block"
-                    />
-                  </button>
-                </td>
-              </tr>
-            );
-          })}
+          {(filterInput === "" && searchInput === "") ||
+          (filterInput === "همه" && searchInput === "")
+            ? state.map((item, index) => {
+                // console.log(item);
+                return (
+                  <tr className="xsm:text-sm " key={index}>
+                    <td className="p-2 xxsm:p-0 xxsm:text-xs ">{index + 1}</td>
+                    <td className="p-2 xxsm:p-0 xxsm:text-xs">{item.name}</td>
+                    <td className="p-2 xxsm:text-xs xxsm:hidden">
+                      {item.director}
+                    </td>
+                    <td className="p-2 xxsm:text-xs">{item.genre}</td>
+                    <td className="p-2 xxsm:text-xs">{item.year}</td>
+                    <td className="p-2 xsm:p-0 xxsm:p-0 xxsm:text-xs">
+                      <button
+                        onClick={() => {
+                          setModalItem(item);
+                          setOpenModal(true);
+                        }}
+                        className="border xsm:p-2 hover:bg-sky-500 xxsm:hover:bg-sky-300 border-sky-600 xxsm:border-none rounded-md p-2 px-4 xxsm:p-1 xxsm:px-2 xxsm:text-xs "
+                      >
+                        <p className="xxsm:hidden">توضیحات</p>
+                        <img
+                          src="./src/images/icon/about.svg"
+                          alt=""
+                          className="w-4 hidden xxsm:block"
+                        />
+                      </button>
+                    </td>
+                    <td className="p-2 xsm:p-0 xxsm:hidden">
+                      <button
+                        onClick={() => {
+                          dispatch({ type: "EDIT_LIST", payload: item });
+                          setOnEdit(true);
+                        }}
+                        className="border xsm:p-2 hover:bg-emerald-500 border-emerald-600 rounded-md p-2 px-4 "
+                      >
+                        ویرایش
+                      </button>
+                    </td>
+                    <td className="p-2 xsm:p-0 xxsm:p-0 xxsm:text-xs">
+                      <button
+                        className="border xsm:p-2 hover:bg-rose-500 xxsm:hover:bg-rose-300 border-rose-600 xxsm:border-none rounded-md p-2 px-4 xxsm:p-1 xxsm:px-2 xxsm:text-xs"
+                        onClick={() => {
+                          dispatch({
+                            type: "REMOVE_FROM_LIST",
+                            payload: item,
+                          });
+                          toast.error("با موفقیت حذف شد!");
+                        }}
+                      >
+                        <p className="xxsm:hidden">حذف</p>
+                        <img
+                          src="./src/images/icon/delete.svg"
+                          alt=""
+                          className="w-4 hidden xxsm:block"
+                        />
+                      </button>
+                    </td>
+                  </tr>
+                );
+              })
+            : searchInput === ""
+            ? state.map((item, index) => {
+                if (item.genre === filterInput) {
+                  return (
+                    <tr className="xsm:text-sm " key={index}>
+                      <td className="p-2 xxsm:p-0 xxsm:text-xs ">
+                        {index + 1}
+                      </td>
+                      <td className="p-2 xxsm:p-0 xxsm:text-xs">{item.name}</td>
+                      <td className="p-2 xxsm:text-xs xxsm:hidden">
+                        {item.director}
+                      </td>
+                      <td className="p-2 xxsm:text-xs">{item.genre}</td>
+                      <td className="p-2 xxsm:text-xs">{item.year}</td>
+                      <td className="p-2 xsm:p-0 xxsm:p-0 xxsm:text-xs">
+                        <button
+                          onClick={() => {
+                            setModalItem(item);
+                            setOpenModal(true);
+                          }}
+                          className="border xsm:p-2 hover:bg-sky-500 xxsm:hover:bg-sky-300 border-sky-600 xxsm:border-none rounded-md p-2 px-4 xxsm:p-1 xxsm:px-2 xxsm:text-xs "
+                        >
+                          <p className="xxsm:hidden">توضیحات</p>
+                          <img
+                            src="./src/images/icon/about.svg"
+                            alt=""
+                            className="w-4 hidden xxsm:block"
+                          />
+                        </button>
+                      </td>
+                      <td className="p-2 xsm:p-0 xxsm:hidden">
+                        <button
+                          onClick={() => {
+                            dispatch({ type: "EDIT_LIST", payload: item });
+                            setOnEdit(true);
+                          }}
+                          className="border xsm:p-2 hover:bg-emerald-500 border-emerald-600 rounded-md p-2 px-4 "
+                        >
+                          ویرایش
+                        </button>
+                      </td>
+                      <td className="p-2 xsm:p-0 xxsm:p-0 xxsm:text-xs">
+                        <button
+                          className="border xsm:p-2 hover:bg-rose-500 xxsm:hover:bg-rose-300 border-rose-600 xxsm:border-none rounded-md p-2 px-4 xxsm:p-1 xxsm:px-2 xxsm:text-xs"
+                          onClick={() => {
+                            dispatch({
+                              type: "REMOVE_FROM_LIST",
+                              payload: item,
+                            });
+                            toast.error("با موفقیت حذف شد!");
+                          }}
+                        >
+                          <p className="xxsm:hidden">حذف</p>
+                          <img
+                            src="./src/images/icon/delete.svg"
+                            alt=""
+                            className="w-4 hidden xxsm:block"
+                          />
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                }
+              })
+            : searchInput !== ""
+            ? state.map((item, index) => {
+                if (
+                  item.name.includes(searchInput) ||
+                  item.director.includes(searchInput) ||
+                  item.genre.includes(searchInput) ||
+                  item.year.includes(searchInput)
+                ) {
+                  return (
+                    <tr className="xsm:text-sm " key={index}>
+                      <td className="p-2 xxsm:p-0 xxsm:text-xs ">
+                        {index + 1}
+                      </td>
+                      <td className="p-2 xxsm:p-0 xxsm:text-xs">{item.name}</td>
+                      <td className="p-2 xxsm:text-xs xxsm:hidden">
+                        {item.director}
+                      </td>
+                      <td className="p-2 xxsm:text-xs">{item.genre}</td>
+                      <td className="p-2 xxsm:text-xs">{item.year}</td>
+                      <td className="p-2 xsm:p-0 xxsm:p-0 xxsm:text-xs">
+                        <button
+                          onClick={() => {
+                            setModalItem(item);
+                            setOpenModal(true);
+                          }}
+                          className="border xsm:p-2 hover:bg-sky-500 xxsm:hover:bg-sky-300 border-sky-600 xxsm:border-none rounded-md p-2 px-4 xxsm:p-1 xxsm:px-2 xxsm:text-xs "
+                        >
+                          <p className="xxsm:hidden">توضیحات</p>
+                          <img
+                            src="./src/images/icon/about.svg"
+                            alt=""
+                            className="w-4 hidden xxsm:block"
+                          />
+                        </button>
+                      </td>
+                      <td className="p-2 xsm:p-0 xxsm:hidden">
+                        <button
+                          onClick={() => {
+                            dispatch({ type: "EDIT_LIST", payload: item });
+                            setOnEdit(true);
+                          }}
+                          className="border xsm:p-2 hover:bg-emerald-500 border-emerald-600 rounded-md p-2 px-4 "
+                        >
+                          ویرایش
+                        </button>
+                      </td>
+                      <td className="p-2 xsm:p-0 xxsm:p-0 xxsm:text-xs">
+                        <button
+                          className="border xsm:p-2 hover:bg-rose-500 xxsm:hover:bg-rose-300 border-rose-600 xxsm:border-none rounded-md p-2 px-4 xxsm:p-1 xxsm:px-2 xxsm:text-xs"
+                          onClick={() => {
+                            dispatch({
+                              type: "REMOVE_FROM_LIST",
+                              payload: item,
+                            });
+                            toast.error("با موفقیت حذف شد!");
+                          }}
+                        >
+                          <p className="xxsm:hidden">حذف</p>
+                          <img
+                            src="./src/images/icon/delete.svg"
+                            alt=""
+                            className="w-4 hidden xxsm:block"
+                          />
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                }
+              })
+            : console.log("reza")}
         </tbody>
       </table>
     </div>

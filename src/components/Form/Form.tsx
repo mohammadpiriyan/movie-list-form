@@ -16,6 +16,8 @@ const Form = () => {
     setEditItem,
     onEdit,
     setOnEdit,
+    filterInput,
+    setFilterInput,
   } = useMovieStore();
 
   // --------------------------------------------------------------------

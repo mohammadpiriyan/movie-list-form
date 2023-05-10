@@ -41,6 +41,8 @@ const MovieProvider = ({ children }: { children: ReactNode }) => {
   const [onEdit, setOnEdit] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [modalItem, setModalItem] = useState({});
+  const [filterInput, setFilterInput] = useState("");
+  const [searchInput, setSearchInput] = useState("");
 
   // ========================================
   // function reducer
@@ -106,6 +108,10 @@ const MovieProvider = ({ children }: { children: ReactNode }) => {
         setOpenModal,
         modalItem,
         setModalItem,
+        filterInput,
+        setFilterInput,
+        searchInput,
+        setSearchInput,
       }}
     >
       {children}
